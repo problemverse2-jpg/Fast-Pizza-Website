@@ -1,0 +1,185 @@
+# FAST PIZZA — Website Strategy & Emergent Build Prompt
+
+**Research status:** GBP could not be fetched directly (Google Maps business profile pages are JS-rendered and sit behind an interface web_fetch can't access) — the listing data you pasted (menu tabs, hours, reviews, address, rating, category) is used as the verified primary source. A supplementary web search found no independent website, social account, or third-party ordering listing for this specific location [Source: web search] — this is a full greenfield build with no existing digital assets to reconcile.
+
+**Declared Tier:** A — WhatsApp/Call lead-capture. No live table booking or payment backend (not requested, not warranted at this business size).
+**Admin/Auth declaration:** None — no login/admin area.
+**AI integration:** Included — lightweight FAQ/concierge chat widget (hours, menu, veg/non-veg, location), grounded strictly in site content.
+
+---
+
+## 1. Business Analysis
+- **Offer:** quick-service pizza — dine-in, drive-through, delivery, open until 3 AM [Source: GBP listing].
+- **Audience:** Poornima University/Institute students next door — a ~32-acre campus [Source: web search] — plus Mahatma Gandhi Hospital staff and visitors across the road [Source: GBP listing], and Sitapura residents / late-shift workers.
+- **Sourced strengths:** 4.2★ across 25 reviews [Source: GBP listing]; repeated praise for delivery speed and food quality [Source: GBP reviews]; garlic knots called out by name as a standout [Source: GBP reviews].
+- **Friction to solve:** one visible review flags arrogant/uninformed staff [Source: GBP reviews] — copy should lean on speed and food quality, the consistently repeated theme, and avoid claiming "hospitality" or "best service," since that has a documented counter-example.
+- **Digital gap = opportunity:** zero footprint beyond GBP itself [Source: web search]. Every order today walks in, calls, or gets lucky on Maps. A site plus a direct WhatsApp ordering path captures demand that currently leaks to whoever answers the phone first.
+- **Primary conversion goal:** Order on WhatsApp / Call Now (Restaurant category × Tier A).
+
+## 2. Website Concept
+Fast, bold, appetite-driven quick-service energy — closer to a Domino's-style ordering flow than a sit-down restaurant site. **Light theme only, no dark mode** — this business doesn't need the extra design and QA surface, and skipping it ships faster.
+
+## 3. Color Palette (light only)
+| Role | Hex | Note |
+|---|---|---|
+| Primary | `#D62828` | appetite red, QSR convention |
+| Secondary | `#1F1B18` | charcoal — carries all body text |
+| Accent | `#F4A300` | cheese-gold — CTAs, hover |
+| Background | `#FFFBF5` | Surface | `#FFFFFF` |
+| Muted text | `#6B6560` | Button hover | `#B21F1F` |
+
+Red-on-cream fails AA at body-text sizes, so red is restricted to large text/accents; charcoal-on-cream carries all body copy at >7:1 contrast.
+
+## 4. Typography
+- Heading: **Baloo 2** (rounded, high-weight, standard in Indian QSR branding)
+- Body: **Inter** (legible at small sizes for the menu/price grid)
+- Button: Inter, semibold, uppercase, slight letter-tracking
+
+## 5. Logo Direction
+No existing digital logo found — `[PLACEHOLDER — confirm with client]`. Direction: pizza-slice icon + bold "FAST PIZZA" wordmark in red/charcoal/white; horizontal lockup for the header, slice-only mark for the favicon.
+
+## 6. Structure
+**Home · Menu · Contact** — three pages, deliberately lean. A QSR site converts on speed-to-order, not page depth; more pages here is scope creep, not value.
+- **6A:** standard breakpoints (320/640/768/1024/1280).
+- **6B:** Tier A — no backend data layer beyond the contact/order relay.
+- **6C:** no admin area.
+
+## 7–8. Homepage & Copy
+Hero leads with the two claims the reviews actually support: fast, and open till 3 AM. Primary CTA "Order on WhatsApp," secondary "Call Now." Menu preview pulls from the same category data as the full Menu page. Prices are `[PLACEHOLDER — confirm with client]` — GBP doesn't expose an actual price list. Reviews section quotes only the two attributable positive reviews already public [Source: GBP reviews] — no invented ratings, awards, or quotes.
+
+## 9–11. Imagery, Motion, Mobile
+Warm close-up food photography (cheese pulls, shared pizza) — stock/placeholder until real photos are supplied. Standard reveal/hover motion, `prefers-reduced-motion` respected. **Sticky "Order on WhatsApp" button on mobile** — the single highest-leverage element on the site, since the real customer is ordering from a phone at 11 PM, not browsing a desktop menu.
+
+## 12–13. SEO, Accessibility, Security
+`Restaurant`/`LocalBusiness` schema. NAP must match the GBP listing character-for-character, including the "near Mahatma Gandhi Hospital, behind Poornima Institute" landmark phrasing — mismatched NAP is the most common reason a listing like this underperforms once a site exists. Full WCAG 2.2 AA, full security header set, Redis-backed rate limiting on the contact/order relay, honeypot field. No admin surface to harden, since none exists.
+
+## 13C. Monitoring
+Sentry on frontend + relay function. Every WhatsApp/call-intent click and form submission also logged to a fallback Sheet — if a WhatsApp deep link fails to open on some device, the lead still isn't lost.
+
+## 15. AI Integration
+Included: a small chat bubble answering "are you open now," "what's on the menu," "is there a veg option," "where exactly are you" — grounded strictly in `site.ts`, deferring anything else to WhatsApp. Genuinely useful at 1–2 AM when no one's picking up the phone.
+
+---
+
+## 16. Final Emergent Prompt
+
+Build a production-ready marketing website for FAST PIZZA (फास्ट पिज्जा), a quick-service pizza restaurant in Sitapura, Jaipur, at Shop No. S1, 92, MGH Road, near Mahatma Gandhi Hospital, behind Poornima Institute. The business has no existing website — every customer today finds it through Google Maps, walk-in, or word of mouth — so treat this as the business's first digital storefront: fast to load, obvious to order from, and honest about what it's actually known for.
+
+The location sits opposite Mahatma Gandhi Hospital and beside the ~32-acre Poornima University/Institute campus, and is open until 3 AM — a genuinely rare trait in this category that almost no nearby competitor can claim. Lead with it. The available public data — a 4.2-star rating across 25 reviews, repeated praise for delivery speed and food quality, a standout mention of the garlic knots, and one complaint about staff attitude — should shape every line of copy: sell speed and food quality, the consistent, repeated theme; never sell "hospitality" or "best service," the one theme with a documented counter-example. Do not invent ratings, awards, menu prices, or staff details. Anywhere real data is missing — menu prices, food photography, logo — insert a clearly commented placeholder for the client to fill in before launch; never fabricate it.
+
+Build three pages only: Home, Menu, Contact. This is deliberate — a quick-service restaurant converts on speed-to-order, not page depth. Home carries a hero (headline built on "fast" plus late-night hours), a menu preview drawing from the same category data as the full Menu page, a "why fast pizza" section built only from the sourced praise themes, an hours/location block with an embedded map, the two attributable review quotes, and a final CTA. Every page carries a persistent, sticky "Order on WhatsApp" action on mobile — the single highest-value UI element on the site, since the real customer is a student or hospital visitor ordering from a phone late at night, not browsing a desktop menu.
+
+Use a red/charcoal/cheese-gold palette on one light theme only (no dark mode — unnecessary scope here), Baloo 2 for headings, Inter for body copy and the menu/price grid. Respect the WCAG AA contrast pairings specified: red for large text and accents only, charcoal-on-cream for all body copy.
+
+This is Tier A: every "order" and "contact" action is a lead-capture relay to WhatsApp/email, not a live transactional system. Copy must say "Order on WhatsApp" or "Call to Order," never imply a real-time cart, checkout, or delivery tracking that doesn't exist. There is no admin area and no login. Implement the one AI feature specified below: a small FAQ/concierge chat widget answering hours, menu, veg/non-veg, and location questions, grounded strictly in `site.ts`, deferring everything else to WhatsApp — this business operates hours when nobody's available to answer the phone, and a grounded widget covers that gap cheaply and safely.
+
+Treat local SEO as first-class, not an afterthought: `Restaurant`/`LocalBusiness` schema, and NAP that matches the GBP listing exactly, character for character, including the "near Mahatma Gandhi Hospital, behind Poornima Institute" landmark language — mismatched NAP is the most common reason a listing like this underperforms in local search once a website exists. Follow the full performance, accessibility, security, monitoring, and CI/CD requirements below without exception — none are optional at this business size; they're what separates a real production build from a template.
+
+```
+Build this as a React + Vite + TypeScript project. Centralize ALL
+business-specific info into src/config/site.ts, exported as named
+objects (site, contact, whatsapp, plus category data). Every
+component imports from this file — no business info hardcoded
+elsewhere.
+
+At the top of site.ts, read optional overrides from URL query
+parameters, falling back to defaults:
+
+const params = new URLSearchParams(window.location.search);
+const override = (key: string, fallback: string) => params.get(key) || fallback;
+
+Wire up overrides for at minimum: name, shortName, tagline, phone,
+phoneE164, city, address, whatsappNumber.
+Defaults: name "Fast Pizza", phone "080002 11303", phoneE164
+"+918000211303", city "Jaipur", address "Shop No. S 1, 92, MGH Road,
+near Mahatma Gandhi Hospital, behind Poornima Institute, Sitapura,
+Jaipur, Rajasthan 302022", whatsappNumber same as phoneE164 unless
+the client supplies a different WhatsApp-for-business number.
+
+Regardless of query params present, render a canonical tag pointing
+to the base URL without query params:
+<link rel="canonical" href="https://yoursite.com/" />
+
+Breakpoints: mobile (base) 320-639px, sm 640-767px, md 768-1023px
+(tablet), lg 1024-1279px, xl 1280px+. Use consistently in Tailwind
+config and component logic.
+
+Scope: implement Tier A (lead-capture) functionality only. All
+"order" and "contact" actions relay to WhatsApp (wa.me deep link
+pre-filled with a short order-intent message) or a serverless
+email/notification function — never a live cart or checkout.
+
+Component structure: src/components/{ui,sections,layout}/,
+src/config/site.ts, src/hooks/. Lazy-load below-the-fold sections
+and gallery/menu images via React.lazy + Suspense or native
+loading="lazy".
+
+Pages: Home, Menu, Contact only. Home includes hero, menu preview,
+"why fast pizza" (built only from sourced praise themes: speed,
+food quality, garlic knots — never generic hospitality claims),
+hours/location with embedded map, two attributed review quotes,
+final CTA. Menu page pulls categorized items + prices from
+site.ts, all marked with a visible dev comment
+"// PLACEHOLDER — confirm real prices with client" until real
+data is supplied. Contact page has map, WhatsApp button, Call Now
+button, hours.
+
+Performance: Lighthouse ≥90 mobile / ≥95 desktop; initial route JS
+≤200KB gzipped; images WebP/AVIF with responsive srcset; LCP ≤2.5s
+on simulated 4G; CLS ≤0.1. Static assets cached with
+Cache-Control: public, max-age=31536000, immutable; HTML with
+no-cache. Deploy behind a CDN (Vercel Edge or Cloudflare).
+
+Security: enforce HTTPS with automatic redirect. Add CSP (script-src
+self + declared CDNs only), X-Content-Type-Options: nosniff,
+X-Frame-Options: DENY, Referrer-Policy: strict-origin-when-cross-origin,
+HSTS. CORS on the form-relay/API endpoint allow-lists only the
+production domain — never a wildcard. Rate-limit all public form and
+API endpoints using a shared store (Upstash Redis, sliding window,
+5 req/min/IP) — do NOT use in-memory counters, the functions are
+stateless and this will not work. Add a honeypot field to all public
+forms. All input validated and sanitized server-side. Never hardcode
+API keys/tokens/credentials in client-side code — read from
+environment variables on the backend/serverless function only. No
+admin area exists, so CSRF/session hardening is not applicable.
+
+Monitoring: integrate Sentry on both the frontend (error boundary)
+and the backend/serverless relay function. Log every WhatsApp/call
+intent click and every successful contact-form submission to a
+fallback store (Sheet webhook) so no lead is lost if the primary
+relay fails.
+
+AI integration: INCLUDE. Build a lightweight FAQ/concierge chat
+widget grounded strictly in site.ts content (hours, menu categories,
+veg/non-veg, location, "are you open now" logic based on the 3 AM
+closing time), calling the LLM via a server-side endpoint only (key
+never exposed client-side), rate-limited via the same shared
+limiter, explicitly instructed to defer out-of-scope questions
+("can I customize this order," "do you deliver to X") to the
+WhatsApp CTA.
+
+Testing & CI: one unit test for form/relay validation logic, one
+Playwright E2E test covering the primary conversion action
+(WhatsApp order click end-to-end), and an axe-core accessibility
+assertion within that same E2E run (fail on critical/serious
+violations). GitHub Actions workflow running lint, typecheck, tests,
+and npm audit (blocking on high/critical) on every push. Deploy via
+preview-then-promote with the last 3 production deployments kept
+instantly revertible.
+
+Accessibility: WCAG 2.2 AA — keyboard navigable, visible focus
+states, labeled form fields, alt text on all images, aria-live="polite"
+region announcing form/order-intent submission success or error.
+
+Local SEO: Restaurant/LocalBusiness schema, NAP matching the GBP
+listing exactly (including "near Mahatma Gandhi Hospital, behind
+Poornima Institute"), sitemap.xml, robots.txt, OG/Twitter Card tags
+populated from site.ts, canonical URL on every page regardless of
+query params.
+
+Documentation: README.md covering local setup, editing site.ts
+(especially menu items/prices and the AI widget's grounding
+content), the URL-override system, and required environment
+variables (WhatsApp number, Sentry DSN, LLM API key, Redis
+credentials).
+```

@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Fast Pizza"
+description = "A fast, late-night restaurant website for Fast Pizza in Sitapura, Jaipur, with menu browsing, WhatsApp ordering, call-to-order actions, location details, and a grounded FAQ concierge."
+version = "1.0.0"
+id = "artifacts/fast-pizza"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21813
+
+[services.development]
+run = "pnpm --filter @workspace/fast-pizza run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/fast-pizza", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/fast-pizza/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21813"
+BASE_PATH = "/"
