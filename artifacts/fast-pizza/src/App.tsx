@@ -14,6 +14,8 @@ import { Route, Switch, useLocation, Router as WouterRouter } from "wouter";
 const queryClient = new QueryClient();
 
 function SiteMetadata() {
+  const [location] = useLocation();
+
   useEffect(() => {
     document.title = `${site.name} — ${site.tagline}`;
     const description = `${site.name} in ${site.city}: hot pizza, proper sides and late-night ordering until 3 AM.`;
@@ -49,7 +51,7 @@ function SiteMetadata() {
       document.head.appendChild(schema);
     }
     schema.textContent = JSON.stringify(structuredData);
-  }, []);
+  }, [location]);
   return null;
 }
 
